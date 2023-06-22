@@ -7,14 +7,15 @@ function App() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const form = e.target.newItem.value;
+    const form = e.target.newItem.value.trim();
 
-    const newTask = {
-      id: Date.now(),
-      description: form,
-    };
-
-    setTasks(prevTasks => [...prevTasks, newTask]);
+    if (form !== "") {
+      const newTask = {
+        id: Date.now(),
+        description: form,
+      };
+      setTasks(prevTasks => [...prevTasks, newTask]);
+    }
 
     e.target.newItem.value = "";
   };
