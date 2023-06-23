@@ -1,9 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Task from "./Components/Task";
 
 function App() {
   const [tasks, setTasks] = useState([]);
+  const [pageLoaded, setPageLoaded] = useState(false);
+  const [taskLoaded, setTaskLoaded] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setPageLoaded(true);
+    }, 300);
+  }, []);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -15,6 +23,11 @@ function App() {
         description: form,
       };
       setTasks(prevTasks => [...prevTasks, newTask]);
+      setTaskLoaded(true);
+
+      setTimeout(() => {
+        setTaskLoaded(false);
+      }, 500);
     }
 
     e.target.newItem.value = "";
@@ -25,7 +38,7 @@ function App() {
   };
 
   return (
-    <>
+    <div className={`App ${pageLoaded ? "page-loaded" : ""}`}>
       <h1>Todo List App</h1>
       <form onSubmit={handleSubmit} action="">
         <label htmlFor="">
@@ -35,8 +48,10 @@ function App() {
         <button type="submit">Add</button>
       </form>
       <hr />
-      <Task tasks={tasks} onDelete={handleDelete} />
-    </>
+      <div className={`task-container ${taskLoaded ? "task-added" : ""}`}>
+        <Task tasks={tasks} onDelete={handleDelete} taskLoaded={taskLoaded} />
+      </div>
+    </div>
   );
 }
 

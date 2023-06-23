@@ -5,7 +5,7 @@ function Task({ tasks, onDelete }) {
 
   const handleToggleCompletion = taskId => {
     setCompletedTasks(prevCompletedTasks => {
-      if (completedTasks.includes(taskId)) {
+      if (prevCompletedTasks.includes(taskId)) {
         return prevCompletedTasks.filter(id => id !== taskId);
       } else {
         return [...prevCompletedTasks, taskId];
@@ -16,7 +16,9 @@ function Task({ tasks, onDelete }) {
   return (
     <>
       {tasks.map(task => (
-        <div key={task.id}>
+        <div
+          key={task.id}
+        >
           <input
             type="checkbox"
             onClick={() => handleToggleCompletion(task.id)}

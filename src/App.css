@@ -5,9 +5,11 @@
   text-align: center;
 }
 
-.form{
-  background-color: black;
+.App {
+  opacity: 0;
+  transition: opacity 1.5s;
 }
 
-
-
+.App.page-loaded {
+  opacity: 1;
+}
